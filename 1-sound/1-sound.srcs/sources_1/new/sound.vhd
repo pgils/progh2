@@ -1,15 +1,12 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Engineer: Pelle van Gils
 -- 
 -- Create Date: 01/30/2019 10:50:49 PM
--- Design Name: 
 -- Module Name: sound - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
+-- Project Name: 1-Sound
 -- Description: 
--- 
+--  Continuous playback of a sound fragment
+--  stored in a ROM block.
 -- Dependencies: 
 -- 
 -- Revision:
@@ -32,15 +29,19 @@ end sound;
 
 architecture Behavioral of sound is
 
+-- the frequency of `clk` in Hz.
 constant    clockFreq       : integer   := 100*(10**6); -- 100 MHz clock
 
+-- characteristics of the ROM block
 constant    sampleSize      : integer   := 8;           -- 8bit sample size
 constant    sampleCount     : integer   := 6710;
 constant    sampleFreq      : integer   := 8*(10**3);   -- 8kHz Sample frequency
 
-signal      memAddr         : std_logic_vector(12 downto 0);
-signal      memData         : std_logic_vector(7 downto 0);
+-- signals for relaying data
+signal      memAddr         : std_logic_vector(12 downto 0) := (others => '0');
+signal      memData         : std_logic_vector(7 downto 0)  := (others => '0');
 
+-- counter signals used for creating intevals
 signal      pwmCounter      : integer   := 0;
 signal      sampleCounter   : integer   := 0;
 
@@ -55,16 +56,20 @@ end component blkMemBertErnie;
 
 begin
 
+-- Set audio output
 setPwmAudioOut : process( clk )
 begin
     if rising_edge(clk) then
+        -- always increase the counter
         pwmCounter <= (pwmCounter + 1);
         
+        -- determine the duty cycle
         if (pwmCounter >= unsigned(memData)) then
             PIN_MONO <= '0';
         end if;
         
-        if (pwmCounter >= sampleSize) then
+        -- roll over to the next PWM pulse
+        if (pwmCounter >= 2**sampleSize) then
             pwmCounter <= 0;
             PIN_MONO <= '1';
         end if;
@@ -72,20 +77,26 @@ begin
 
 end process setPwmAudioOut;
 
+-- Get data for the current audio sample from ROM
 setAudioSampleData : process( clk )
 begin
     if rising_edge(clk) then
+        -- always increase counter
         sampleCounter <= (sampleCounter + 1);
-        
+
+        -- get next sample data if needed
         if (sampleCounter >= (clockFreq / sampleFreq)) then
+            sampleCounter <= 0;
+
             memAddr <= std_logic_vector(unsigned(memAddr) + 1);
-            if (unsigned(memAddr) >= sampleCount) then
+            if (unsigned(memAddr) >= (sampleCount-1)) then -- samplecount-1 b/c index
                 memAddr <= (others => '0');
             end if;
         end if;
     end if; -- rising_edge(clk)
     
 end process setAudioSampleData;
+
 
 MEM : blkMemBertErnie port map (
     clka    => clk,
