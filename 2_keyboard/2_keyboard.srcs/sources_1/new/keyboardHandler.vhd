@@ -1,21 +1,17 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Engineer: Pelle van Gils
 -- 
 -- Create Date: 02/09/2019 12:10:46 AM
--- Design Name: 
 -- Module Name: keyboardHandler - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
+-- Project Name: 2_keyboard
 -- Description: 
--- 
+--  PS/2 keyboard reader
 -- Dependencies: 
 -- 
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+--   needs VHDL2008
 ----------------------------------------------------------------------------------
 
 
