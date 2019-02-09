@@ -20,7 +20,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity digitBuffer is
     port (
-        keyPressed      : in  std_logic;
+        keyPressed      : in  std_logic := '0';
         keyData         : in  std_logic_vector(3 downto 0);
         bcdBuffer_out   : out std_logic_vector(15 downto 0)
         );
@@ -38,8 +38,8 @@ insertToBuffer: process(keyPressed)
 
 begin
     if rising_edge(keyPressed) then
-        bcdBuffer       <= bcdBuffer(11 downto 0) & keyData;
-        bcdBuffer_out   <= bcdBuffer;
+        bcdBuffer       <= std_logic_vector(bcdBuffer(11 downto 0) & keyData);
+        bcdBuffer_out   <= std_logic_vector(bcdBuffer(11 downto 0) & keyData);
     end if;
     
 end process insertToBuffer;
