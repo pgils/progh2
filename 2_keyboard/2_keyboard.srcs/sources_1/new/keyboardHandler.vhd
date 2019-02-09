@@ -37,8 +37,8 @@ architecture Behavioral of keyboardHandler is
 
 -- buffers: 3 bits (flip-flops) for stabilizing the signal
 -- and extra bit for clk for comparing to HIGH-1 for edge detection.
-signal  clkBuffer   : std_logic_vector(3 downto 0)  := "1111";
-signal  dataBuffer  : std_logic_vector(2 downto 0)  := "111";
+signal  clkBuffer   : std_logic_vector(3 downto 0)  := (others => '1');
+signal  dataBuffer  : std_logic_vector(2 downto 0)  := (others => '1');
 
 -- 11-bit word as sent by the PS/2 device
 signal  dataWord    : std_logic_vector(10 downto 0)  := (others=>'0');
@@ -82,32 +82,32 @@ READ : process(sysclk)
 begin
     if rising_edge(sysclk) then
         -- push new PS/2 data into the buffers
-        clkBuffer           <= PS2Clk & clkBuffer(3 downto 1);
-        dataBuffer          <= PS2Data & dataBuffer(2 downto 1);
+        clkBuffer           <= PS2Clk & clkBuffer(clkBuffer'HIGH downto 1);
+        dataBuffer          <= PS2Data & dataBuffer(dataBuffer'HIGH downto 1);
 
         keyPressed          <= '0'; -- reset key pressed state
         
         if clkBuffer(clkBuffer'LOW+1) = '0' and
            clkBuffer(clkBuffer'LOW+1) /= clkBuffer(clkBuffer'LOW)
            then
-                dataWord(wordIndex)  <= dataBuffer(dataBuffer'LOW);
+                dataWord(wordIndex) <= dataBuffer(dataBuffer'LOW);
                 wordIndex           <= wordIndex +1;
-        
-                -- check if we're at the end of the data frame
-                if wordIndex >= dataWord'HIGH then
-                    wordIndex       <= 0;
-                    
-                    -- check whether the data frame is valid
-                    if checkDataWord(dataWord) then
-                        keyData     <= scancodeToBCD(dataWord(dataWord'HIGH-2 
-                                                              downto dataWord'LOW+1));
-                    else
-                        keyData     <= X"E"; -- error, integrity check failed
-                    end if; -- checkDataWord
-                    keyPressed      <= '1';
---                    dataWord        <= (others => '0');
-                end if; -- wordIndex = 11
-        end if; -- "falling edge" clkBuffer
+        end if;
+
+        -- check if we're at the end of the data frame
+        if wordIndex > dataWord'HIGH then
+            wordIndex       <= 0;
+
+            -- check whether the data frame is valid
+            if checkDataWord(dataWord) then
+                keyData     <= scancodeToBCD(dataWord(dataWord'HIGH-2
+                                                      downto dataWord'LOW+1));
+            else
+                keyData     <= X"E"; -- error, integrity check failed
+            end if; -- checkDataWord
+            keyPressed      <= '1';
+            dataWord        <= (others => '0');
+        end if; -- wordIndex = 11
     end if; -- rising_edge(sysclk)
     
 end process READ;
