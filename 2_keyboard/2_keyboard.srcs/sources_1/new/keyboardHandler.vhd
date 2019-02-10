@@ -73,13 +73,16 @@ end scanCodeToBCD;
 
 -- Check the integrity of a PS/2 dataframe.
 -- checks for start + stop bits and parity.
--- TODO: parity check
 function checkDataWord(word: in std_logic_vector(dataWord'HIGH downto 0))
     return boolean is
 begin
-    if word(0)  /= '0' then return false; end if; -- start bit
-    if word(10) /= '1' then return false; end if; -- stop bit
+    if word(word'LOW)       /= '0' then return false; end if; -- start bit
+    if word(word'HIGH)      /= '1' then return false; end if; -- stop bit
     
+    -- parity check. The PS/2 dataframe uses _odd_ parity. Including the parity bit
+    -- D0-D7+P should contain an odd number of '1's
+    if (xor word(word'HIGH-1 downto word'LOW+1)) /= '1' then return true; end if;
+
     return true;
 end checkDataWord;
 
@@ -114,15 +117,15 @@ begin
             if checkDataWord(dataWord) then
                 newBCD      := scancodeToBCD(dataWord(dataWord'HIGH-2
                                                       downto dataWord'LOW+1));
-
-                -- check for a key-up event. on key-release the PS/2 keyboard
-                -- sends a KEY_UP byte followed by the pressed key's scancode.
-                dropKey     := dropNextKey or newBcd = KEY_UP;
-                dropNextKey <= newBcd = KEY_UP;
-                keyData     <= newBCD;
             else
-                keyData     <= BCD_ERR; -- error, integrity check failed
+                newBCD      := BCD_ERR; -- error, integrity check failed
             end if; -- checkDataWord
+
+            -- check for a key-up event. on key-release the PS/2 keyboard
+            -- sends a KEY_UP byte followed by the pressed key's scancode.
+            dropKey     := dropNextKey or newBcd = KEY_UP;
+            dropNextKey <= newBcd = KEY_UP;
+            keyData     <= newBCD;
             
             if not dropKey then
                 keyPressed  <= '1';
