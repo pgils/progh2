@@ -22,11 +22,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity top is
     port (
-    sysclk      : in  std_logic;
-    PS2Clk      : in  std_logic;
-    PS2Data     : in  std_logic;
-    an          : out std_logic_vector(3 downto 0);
-    seg         : out std_logic_vector(6 downto 0)
+        sysclk          : in  std_logic;
+        PS2Clk          : in  std_logic;
+        PS2Data         : in  std_logic;
+        an              : out std_logic_vector(3 downto 0);
+        seg             : out std_logic_vector(6 downto 0)
     );
 end top;
 
@@ -60,9 +60,9 @@ component keyboardHandler is
         );
 end component;
 
-signal      keyPressed  : std_logic := '0';
-signal      keyData     : std_logic_vector(3 downto 0);
-signal      bcdBuffer   : std_logic_vector(15 downto 0);
+signal  keyPressed      : std_logic := '0';
+signal  keyData         : std_logic_vector(3 downto 0);
+signal  bcdBuffer       : std_logic_vector(15 downto 0);
 
 begin
 
