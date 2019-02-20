@@ -65,69 +65,68 @@ architecture Behavioral of Sprite is
   constant spriteWidth: integer := 100;
   constant romDelay: integer := 2;
   
+  -- declare horizontal and vertical movement booleans
+  signal   Hup: boolean;
+  signal   Vup: boolean;
+
+  -- declare counters
+  signal   hSpriteLoc: std_logic_vector(11 downto 0);
+  signal   vSpriteLoc: std_logic_vector(11 downto 0);
+  signal   addrCnt: STD_LOGIC_VECTOR(13 downto 0);
+
 
 begin
 	 location: process(clk148)
-     -- declare horizontal and vertical movement booleans
-	 variable Hup: boolean;
-	 variable Vup: boolean;
-	 -- declare counters
-	 variable hSpriteLoc: integer;
-     variable vSpriteLoc: integer;
-     variable addrCnt: STD_LOGIC_VECTOR(13 downto 0);
 	 
 	 begin
 	 if (aResetP = '1') then
-	   addrcnt := (others => '0');
-	   Hup := false;
-	   Vup := false;
-	   hSpriteLoc := 0;
-	   vSpriteLoc := 0;
+	   addrcnt <= (others => '0');
+	   Hup <= false;
+	   Vup <= false;
+	   hSpriteLoc <= (others => '0');
+	   vSpriteLoc <= (others => '0');
 	 elsif rising_edge(clk148) then
                          
 	   if (vCnt = V_pixels and hCnt = H_pixels) then -- when end of screen is reached
         
-         addrcnt := (others => '0'); -- reset adrescounter for rom
+         addrcnt <= (others => '0'); -- reset adrescounter for rom
         
             -- move horizontal to the right
        		if (hSpriteLoc < (H_pixels - spriteWidth)  and Hup = true) then
-				hSpriteLoc := hSpriteLoc + 1;	
+				hSpriteLoc <= hSpriteLoc + 1;
 			else 
-				Hup := false;
+				Hup <= false;
 
 			end if;
 			
 			-- move horizontal to the left
 			if (hSpriteLoc > 0 and Hup = false) then
-				hSpriteLoc := hSpriteLoc - 1;	
+				hSpriteLoc <= hSpriteLoc - 1;
 			else 
-				Hup := true;
+				Hup <= true;
 
 			end if;
 			
 			-- move down vertical
 			if (vSpriteLoc < (V_pixels - spriteHight) and Vup = true) then
-				vSpriteLoc := vSpriteLoc + 1;	
+				vSpriteLoc <= vSpriteLoc + 1;
 			else 
-				Vup := false;
+				Vup <= false;
             
             -- move up vertical
 			end if;
 			
 			if (vSpriteLoc > 0 and Vup = false) then
-				vSpriteLoc := vSpriteLoc - 1;	
+				vSpriteLoc <= vSpriteLoc - 1;
 			else 
-				Vup := true;
+				Vup <= true;
 
 			end if;
-					
 		end if;
-
-		
 		
 		-- correct for ROM delay, first read from ROM and then write to screen romDelay clockcycles later
 		if (hCnt >= (hSpriteLoc)) and (hCnt < (hSpriteLoc + spriteWidth)) and (vCnt >= (vSpriteLoc)) and (vCnt < (vSpriteLoc + spriteHight)) then
-			  addrcnt := addrcnt + 1;
+			  addrcnt <= addrcnt + 1;
 	    end if;
 	    
 	    -- write sprite or backcolor	  
