@@ -1,11 +1,10 @@
--- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+-- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
--- Date        : Mon Jan 21 16:22:58 2019
--- Host        : NB170210 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim {C:/Users/jlgheuve/Documents/Werkmap/2018-2019/Periode
---               3/PROGH2/Opdrachten/Uiterkingen opdrachten/Vivado
---               projecten/VGA_HD_timing_issues_smly/VGA_HD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_sim_netlist.vhdl}
+-- Tool Version: Vivado v.2018.2 (lin64) Build 2258646 Thu Jun 14 20:02:38 MDT 2018
+-- Date        : Wed Feb 20 20:26:56 2019
+-- Host        : vhdl.pollop.nl running 64-bit unknown
+-- Command     : write_vhdl -force -mode funcsim
+--               /media/sf_shared/PROGH2/LES3_VGA_HD_timing_issues_smly/VGA_HD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_sim_netlist.vhdl
 -- Design      : blk_mem_gen_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -628,7 +627,7 @@ entity \blk_mem_gen_0_blk_mem_gen_prim_wrapper_init__parameterized1\ is
     DOADO : out STD_LOGIC_VECTOR ( 7 downto 0 );
     DOPADOP : out STD_LOGIC_VECTOR ( 0 to 0 );
     clka : in STD_LOGIC;
-    \SAFETY_CKT_GEN.ENA_WITH_REG.ENA_dly_reg_D_reg\ : in STD_LOGIC;
+    ENA_I : in STD_LOGIC;
     POR_A : in STD_LOGIC;
     ram_rstreg_a : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 11 downto 0 )
@@ -852,7 +851,7 @@ begin
       DOPADOP(0) => DOPADOP(0),
       DOPBDOP(3 downto 0) => \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_DOPBDOP_UNCONNECTED\(3 downto 0),
       ECCPARITY(7 downto 0) => \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_ECCPARITY_UNCONNECTED\(7 downto 0),
-      ENARDEN => \SAFETY_CKT_GEN.ENA_WITH_REG.ENA_dly_reg_D_reg\,
+      ENARDEN => ENA_I,
       ENBWREN => '0',
       INJECTDBITERR => '0',
       INJECTSBITERR => '0',
@@ -1030,10 +1029,10 @@ use UNISIM.VCOMPONENTS.ALL;
 entity \blk_mem_gen_0_blk_mem_gen_prim_wrapper_init__parameterized3\ is
   port (
     douta : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    ram_rstreg_a : out STD_LOGIC;
     \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_0\ : out STD_LOGIC;
     ENA_I : out STD_LOGIC;
     ENA_I_0 : out STD_LOGIC;
+    ENA_I_1 : out STD_LOGIC;
     clka : in STD_LOGIC;
     \SAFETY_CKT_GEN.POR_A_reg\ : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 13 downto 0 );
@@ -1045,7 +1044,7 @@ entity \blk_mem_gen_0_blk_mem_gen_prim_wrapper_init__parameterized3\ is
 end \blk_mem_gen_0_blk_mem_gen_prim_wrapper_init__parameterized3\;
 
 architecture STRUCTURE of \blk_mem_gen_0_blk_mem_gen_prim_wrapper_init__parameterized3\ is
-  signal \^ram_rstreg_a\ : STD_LOGIC;
+  signal \^device_7series.no_bmm_info.sp.simple_prim36.ram_0\ : STD_LOGIC;
   signal \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_CASCADEOUTA_UNCONNECTED\ : STD_LOGIC;
   signal \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_CASCADEOUTB_UNCONNECTED\ : STD_LOGIC;
   signal \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_DBITERR_UNCONNECTED\ : STD_LOGIC;
@@ -1059,7 +1058,7 @@ architecture STRUCTURE of \blk_mem_gen_0_blk_mem_gen_prim_wrapper_init__paramete
   attribute box_type : string;
   attribute box_type of \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram\ : label is "PRIMITIVE";
 begin
-  ram_rstreg_a <= \^ram_rstreg_a\;
+  \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_0\ <= \^device_7series.no_bmm_info.sp.simple_prim36.ram_0\;
 \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM18.ram_i_1\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"AABA"
@@ -1280,8 +1279,8 @@ begin
       REGCEB => '0',
       RSTRAMARSTRAM => \SAFETY_CKT_GEN.POR_A_reg\,
       RSTRAMB => \SAFETY_CKT_GEN.POR_A_reg\,
-      RSTREGARSTREG => \^ram_rstreg_a\,
-      RSTREGB => \^ram_rstreg_a\,
+      RSTREGARSTREG => \^device_7series.no_bmm_info.sp.simple_prim36.ram_0\,
+      RSTREGB => \^device_7series.no_bmm_info.sp.simple_prim36.ram_0\,
       SBITERR => \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_SBITERR_UNCONNECTED\,
       WEA(3 downto 0) => B"0000",
       WEBWE(7 downto 0) => B"00000000"
@@ -1293,7 +1292,7 @@ begin
         port map (
       I0 => rsta,
       I1 => \SAFETY_CKT_GEN.POR_A_reg\,
-      O => \^ram_rstreg_a\
+      O => \^device_7series.no_bmm_info.sp.simple_prim36.ram_0\
     );
 \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_i_1__0\: unisim.vcomponents.LUT3
     generic map(
@@ -1313,7 +1312,7 @@ begin
       I0 => ENA_dly_reg_D,
       I1 => addra(12),
       I2 => addra(13),
-      O => \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_0\
+      O => ENA_I_1
     );
 end STRUCTURE;
 library IEEE;
@@ -1383,7 +1382,7 @@ entity \blk_mem_gen_0_blk_mem_gen_prim_width__parameterized1\ is
     DOADO : out STD_LOGIC_VECTOR ( 7 downto 0 );
     DOPADOP : out STD_LOGIC_VECTOR ( 0 to 0 );
     clka : in STD_LOGIC;
-    \SAFETY_CKT_GEN.ENA_WITH_REG.ENA_dly_reg_D_reg\ : in STD_LOGIC;
+    ENA_I : in STD_LOGIC;
     POR_A : in STD_LOGIC;
     ram_rstreg_a : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 11 downto 0 )
@@ -1398,8 +1397,8 @@ begin
      port map (
       DOADO(7 downto 0) => DOADO(7 downto 0),
       DOPADOP(0) => DOPADOP(0),
+      ENA_I => ENA_I,
       POR_A => POR_A,
-      \SAFETY_CKT_GEN.ENA_WITH_REG.ENA_dly_reg_D_reg\ => \SAFETY_CKT_GEN.ENA_WITH_REG.ENA_dly_reg_D_reg\,
       addra(11 downto 0) => addra(11 downto 0),
       clka => clka,
       ram_rstreg_a => ram_rstreg_a
@@ -1412,15 +1411,11 @@ use UNISIM.VCOMPONENTS.ALL;
 entity \blk_mem_gen_0_blk_mem_gen_prim_width__parameterized2\ is
   port (
     p_7_out : out STD_LOGIC_VECTOR ( 8 downto 0 );
-    rsta_busy : out STD_LOGIC;
-    ENA_dly_reg : out STD_LOGIC;
     clka : in STD_LOGIC;
     ENA_I : in STD_LOGIC;
     POR_A : in STD_LOGIC;
     ram_rstreg_a : in STD_LOGIC;
-    addra : in STD_LOGIC_VECTOR ( 10 downto 0 );
-    ram_rstreg_a_busy : in STD_LOGIC;
-    rsta : in STD_LOGIC
+    addra : in STD_LOGIC_VECTOR ( 10 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of \blk_mem_gen_0_blk_mem_gen_prim_width__parameterized2\ : entity is "blk_mem_gen_prim_width";
@@ -1428,25 +1423,6 @@ end \blk_mem_gen_0_blk_mem_gen_prim_width__parameterized2\;
 
 architecture STRUCTURE of \blk_mem_gen_0_blk_mem_gen_prim_width__parameterized2\ is
 begin
-\SAFETY_CKT_GEN.ENA_WITH_REG.ENA_dly_reg_reg\: unisim.vcomponents.FDSE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => clka,
-      CE => '1',
-      D => POR_A,
-      Q => ENA_dly_reg,
-      S => rsta
-    );
-\SAFETY_CKT_GEN.RSTA_BUSY_WITH_REG.RSTA_BUSY_reg\: unisim.vcomponents.FDRE
-     port map (
-      C => clka,
-      CE => '1',
-      D => ram_rstreg_a_busy,
-      Q => rsta_busy,
-      R => '0'
-    );
 \prim_init.ram\: entity work.\blk_mem_gen_0_blk_mem_gen_prim_wrapper_init__parameterized2\
      port map (
       ENA_I => ENA_I,
@@ -1466,13 +1442,12 @@ entity \blk_mem_gen_0_blk_mem_gen_prim_width__parameterized3\ is
     douta : out STD_LOGIC_VECTOR ( 1 downto 0 );
     POR_A : out STD_LOGIC;
     ram_rstreg_a : out STD_LOGIC;
-    \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram\ : out STD_LOGIC;
+    rsta_busy : out STD_LOGIC;
     ENA_I : out STD_LOGIC;
-    ram_rstreg_a_busy : out STD_LOGIC;
     ENA_I_0 : out STD_LOGIC;
+    ENA_I_1 : out STD_LOGIC;
     clka : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 13 downto 0 );
-    ENA_dly_reg : in STD_LOGIC;
     rsta : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -1480,18 +1455,22 @@ entity \blk_mem_gen_0_blk_mem_gen_prim_width__parameterized3\ is
 end \blk_mem_gen_0_blk_mem_gen_prim_width__parameterized3\;
 
 architecture STRUCTURE of \blk_mem_gen_0_blk_mem_gen_prim_width__parameterized3\ is
+  signal ENA_dly_reg : STD_LOGIC;
   signal ENA_dly_reg_D : STD_LOGIC;
   signal \^por_a\ : STD_LOGIC;
   signal \SAFETY_CKT_GEN.POR_A_i_1_n_0\ : STD_LOGIC;
   signal \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg[3]_srl3_n_0\ : STD_LOGIC;
   signal \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg_n_0_[0]\ : STD_LOGIC;
   signal \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg_n_0_[4]\ : STD_LOGIC;
+  signal \^ram_rstreg_a\ : STD_LOGIC;
+  signal ram_rstreg_a_busy : STD_LOGIC;
   attribute srl_bus_name : string;
   attribute srl_bus_name of \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg[3]_srl3\ : label is "U0/\inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[4].ram.r/SAFETY_CKT_GEN.RSTA_SHFT_REG_reg ";
   attribute srl_name : string;
   attribute srl_name of \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg[3]_srl3\ : label is "U0/\inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[4].ram.r/SAFETY_CKT_GEN.RSTA_SHFT_REG_reg[3]_srl3 ";
 begin
   POR_A <= \^por_a\;
+  ram_rstreg_a <= \^ram_rstreg_a\;
 \SAFETY_CKT_GEN.ENA_WITH_REG.ENA_dly_reg_D_reg\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
@@ -1503,13 +1482,24 @@ begin
       Q => ENA_dly_reg_D,
       R => '0'
     );
+\SAFETY_CKT_GEN.ENA_WITH_REG.ENA_dly_reg_reg\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => clka,
+      CE => '1',
+      D => \^ram_rstreg_a\,
+      Q => ENA_dly_reg,
+      R => '0'
+    );
 \SAFETY_CKT_GEN.POR_A_i_1\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"6"
     )
         port map (
-      I0 => \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg_n_0_[4]\,
-      I1 => \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg_n_0_[0]\,
+      I0 => \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg_n_0_[0]\,
+      I1 => \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg_n_0_[4]\,
       O => \SAFETY_CKT_GEN.POR_A_i_1_n_0\
     );
 \SAFETY_CKT_GEN.POR_A_reg\: unisim.vcomponents.FDRE
@@ -1528,11 +1518,19 @@ begin
       INIT => X"FFFE"
     )
         port map (
-      I0 => ENA_dly_reg_D,
+      I0 => \^por_a\,
       I1 => rsta,
-      I2 => \^por_a\,
-      I3 => ENA_dly_reg,
+      I2 => ENA_dly_reg,
+      I3 => ENA_dly_reg_D,
       O => ram_rstreg_a_busy
+    );
+\SAFETY_CKT_GEN.RSTA_BUSY_WITH_REG.RSTA_BUSY_reg\: unisim.vcomponents.FDRE
+     port map (
+      C => clka,
+      CE => '1',
+      D => ram_rstreg_a_busy,
+      Q => rsta_busy,
+      R => '0'
     );
 \SAFETY_CKT_GEN.RSTA_SHFT_REG_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -1572,15 +1570,15 @@ begin
     );
 \prim_init.ram\: entity work.\blk_mem_gen_0_blk_mem_gen_prim_wrapper_init__parameterized3\
      port map (
-      \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_0\ => \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram\,
+      \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_0\ => \^ram_rstreg_a\,
       ENA_I => ENA_I,
       ENA_I_0 => ENA_I_0,
+      ENA_I_1 => ENA_I_1,
       ENA_dly_reg_D => ENA_dly_reg_D,
       \SAFETY_CKT_GEN.POR_A_reg\ => \^por_a\,
       addra(13 downto 0) => addra(13 downto 0),
       clka => clka,
       douta(1 downto 0) => douta(1 downto 0),
-      ram_rstreg_a => ram_rstreg_a,
       rsta => rsta
     );
 end STRUCTURE;
@@ -1603,11 +1601,10 @@ end blk_mem_gen_0_blk_mem_gen_generic_cstr;
 architecture STRUCTURE of blk_mem_gen_0_blk_mem_gen_generic_cstr is
   signal ENA_I : STD_LOGIC;
   signal ENA_I_0 : STD_LOGIC;
-  signal ENA_dly_reg : STD_LOGIC;
+  signal ENA_I_1 : STD_LOGIC;
   signal POR_A : STD_LOGIC;
   signal p_7_out : STD_LOGIC_VECTOR ( 8 downto 0 );
   signal ram_rstreg_a : STD_LOGIC;
-  signal ram_rstreg_a_busy : STD_LOGIC;
   signal \ramloop[1].ram.r_n_0\ : STD_LOGIC;
   signal \ramloop[1].ram.r_n_1\ : STD_LOGIC;
   signal \ramloop[1].ram.r_n_2\ : STD_LOGIC;
@@ -1626,7 +1623,6 @@ architecture STRUCTURE of blk_mem_gen_0_blk_mem_gen_generic_cstr is
   signal \ramloop[2].ram.r_n_6\ : STD_LOGIC;
   signal \ramloop[2].ram.r_n_7\ : STD_LOGIC;
   signal \ramloop[2].ram.r_n_8\ : STD_LOGIC;
-  signal \ramloop[4].ram.r_n_4\ : STD_LOGIC;
 begin
 \has_mux_a.A\: entity work.blk_mem_gen_0_blk_mem_gen_mux
      port map (
@@ -1663,7 +1659,7 @@ begin
     );
 \ramloop[1].ram.r\: entity work.\blk_mem_gen_0_blk_mem_gen_prim_width__parameterized0\
      port map (
-      ENA_I => ENA_I,
+      ENA_I => ENA_I_0,
       POR_A => POR_A,
       addra(11 downto 0) => addra(11 downto 0),
       clka => clka,
@@ -1689,38 +1685,33 @@ begin
       DOADO(1) => \ramloop[2].ram.r_n_6\,
       DOADO(0) => \ramloop[2].ram.r_n_7\,
       DOPADOP(0) => \ramloop[2].ram.r_n_8\,
+      ENA_I => ENA_I,
       POR_A => POR_A,
-      \SAFETY_CKT_GEN.ENA_WITH_REG.ENA_dly_reg_D_reg\ => \ramloop[4].ram.r_n_4\,
       addra(11 downto 0) => addra(11 downto 0),
       clka => clka,
       ram_rstreg_a => ram_rstreg_a
     );
 \ramloop[3].ram.r\: entity work.\blk_mem_gen_0_blk_mem_gen_prim_width__parameterized2\
      port map (
-      ENA_I => ENA_I_0,
-      ENA_dly_reg => ENA_dly_reg,
+      ENA_I => ENA_I_1,
       POR_A => POR_A,
       addra(10 downto 0) => addra(10 downto 0),
       clka => clka,
       p_7_out(8 downto 0) => p_7_out(8 downto 0),
-      ram_rstreg_a => ram_rstreg_a,
-      ram_rstreg_a_busy => ram_rstreg_a_busy,
-      rsta => rsta,
-      rsta_busy => rsta_busy
+      ram_rstreg_a => ram_rstreg_a
     );
 \ramloop[4].ram.r\: entity work.\blk_mem_gen_0_blk_mem_gen_prim_width__parameterized3\
      port map (
-      \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram\ => \ramloop[4].ram.r_n_4\,
-      ENA_I => ENA_I_0,
-      ENA_I_0 => ENA_I,
-      ENA_dly_reg => ENA_dly_reg,
+      ENA_I => ENA_I_1,
+      ENA_I_0 => ENA_I_0,
+      ENA_I_1 => ENA_I,
       POR_A => POR_A,
       addra(13 downto 0) => addra(13 downto 0),
       clka => clka,
       douta(1 downto 0) => douta(11 downto 10),
       ram_rstreg_a => ram_rstreg_a,
-      ram_rstreg_a_busy => ram_rstreg_a_busy,
-      rsta => rsta
+      rsta => rsta,
+      rsta_busy => rsta_busy
     );
 end STRUCTURE;
 library IEEE;
@@ -2109,7 +2100,7 @@ entity blk_mem_gen_0 is
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of blk_mem_gen_0 : entity is "yes";
   attribute x_core_info : string;
-  attribute x_core_info of blk_mem_gen_0 : entity is "blk_mem_gen_v8_4_1,Vivado 2017.4";
+  attribute x_core_info of blk_mem_gen_0 : entity is "blk_mem_gen_v8_4_1,Vivado 2018.2";
 end blk_mem_gen_0;
 
 architecture STRUCTURE of blk_mem_gen_0 is
