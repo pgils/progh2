@@ -1,7 +1,9 @@
 *.cache/
 *.runs/
+*.sdk/
 *.hw/
 *.ip_user_files/
+*ipshared/
 *.sim/
 *.zip
 *.log
