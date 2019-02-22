@@ -1,0 +1,43 @@
+{
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 6.8.11  2018-08-07 bk=1.4403 VDI=40 GEI=35 GUI=JA:9.0 TLS
+#  -string -flagsOSRD
+preplace port led_16bits -pg 1 -y 40 -defaultsOSRD
+preplace port dip_switches_16bits -pg 1 -y -100 -defaultsOSRD
+preplace port sys_clock -pg 1 -y 0 -defaultsOSRD
+preplace port usb_uart -pg 1 -y -120 -defaultsOSRD
+preplace port reset -pg 1 -y 200 -defaultsOSRD
+preplace inst rst_clk_wiz_0_100M -pg 1 -lvl 4 -y 250 -defaultsOSRD
+preplace inst microblaze_0_axi_periph -pg 1 -lvl 5 -y 0 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 2 -y 110 -defaultsOSRD
+preplace inst mdm_1 -pg 1 -lvl 1 -y 180 -defaultsOSRD
+preplace inst axi_uartlite_0 -pg 1 -lvl 3 -y -60 -defaultsOSRD
+preplace inst microblaze_0 -pg 1 -lvl 1 -y 10 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 2 -y 240 -defaultsOSRD
+preplace inst microblaze_0_local_memory -pg 1 -lvl 2 -y -30 -defaultsOSRD
+preplace netloc rst_clk_wiz_0_100M_bus_struct_reset 1 1 4 570 370 NJ 370 NJ 370 1500
+preplace netloc clk_wiz_0_locked 1 2 2 NJ 250 1120
+preplace netloc microblaze_0_Clk 1 0 5 20 100 560 330 850 60 1140 60 1510
+preplace netloc microblaze_0_ilmb_1 1 1 1 540
+preplace netloc microblaze_0_M_AXI_DP 1 1 4 530J -120 860J 20 1140J -80 NJ
+preplace netloc microblaze_0_axi_periph_M00_AXI 1 1 5 590 360 NJ 360 NJ 360 NJ 360 1840
+preplace netloc sys_clock_1 1 0 2 20 -90 550
+preplace netloc axi_gpio_0_GPIO2 1 2 4 830 140 N 140 1510 150 1870
+preplace netloc microblaze_0_axi_periph_M01_AXI 1 2 4 880 150 NJ 150 1500J 160 1830
+preplace netloc rst_clk_wiz_0_100M_mb_reset 1 0 5 30 380 NJ 380 NJ 380 NJ 380 1510
+preplace netloc axi_gpio_0_GPIO 1 2 4 840 130 NJ 130 1530J 140 1850J
+preplace netloc axi_uartlite_0_UART 1 3 3 1130J 350 N 350 1860
+preplace netloc microblaze_0_dlmb_1 1 1 1 520
+preplace netloc microblaze_0_debug 1 0 2 30 -80 510
+preplace netloc rst_clk_wiz_0_100M_peripheral_aresetn 1 1 4 580 -130 870 30 NJ 30 1520
+preplace netloc mdm_1_debug_sys_rst 1 1 3 520J 320 NJ 320 1140
+preplace netloc reset_1 1 0 4 20 250 510 310 880 230 N
+levelinfo -pg 1 0 270 710 1000 1320 1680 1890 -top -140 -bot 440
+"
+}
+{
+   "da_axi4_cnt":"4",
+   "da_board_cnt":"4",
+   "da_clkrst_cnt":"2",
+   "da_mb_cnt":"2"
+}
