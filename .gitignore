@@ -1,6 +1,7 @@
 *.cache/
 *.runs/
-*.sdk/
+*.metadata/
+*Debug/
 *.hw/
 *.ip_user_files/
 *.sim/
