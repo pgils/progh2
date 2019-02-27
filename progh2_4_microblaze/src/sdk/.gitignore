@@ -1,0 +1,19 @@
+# sdk exclusions
+/.metadata
+/**/*RemoteSystemsTempFiles
+/**/*Debug/*
+/**/*Release
+/**/*webtalk
+/.sdk
+/*.log
+# ignore everything in the hw_platform
+/*hw_platform*/*
+# except
+!/*hw_platform*/*.hdf
+!/*hw_platform*/.*project
+# ignore everything in the BSP
+/*_bsp*/*
+# except
+!/*_bsp*/system.mss
+!/*_bsp*/Makefile
+!/*_bsp*/.*project
